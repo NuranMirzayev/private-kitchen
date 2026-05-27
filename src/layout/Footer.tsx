@@ -56,7 +56,13 @@ const Footer = () => {
 					</Typography>
 				</Box>
 
-				<Box>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+					}}
+				>
 					<Typography
 						sx={{
 							color: '#777',
