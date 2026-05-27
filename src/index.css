@@ -1,0 +1,18 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* overflow-x: hidden; */
+}
+
+body {
+	background:
+		radial-gradient(circle at top, rgba(212, 160, 23, 0.08), transparent 40%),
+		#0d0d0d;
+}
+
+html,
+body {
+	scroll-behavior: smooth;
+	scroll-padding-top: 100px;
+}
