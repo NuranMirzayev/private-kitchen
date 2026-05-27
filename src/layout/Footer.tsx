@@ -60,6 +60,7 @@ const Footer = () => {
 					<Typography
 						sx={{
 							color: '#777',
+							textAlign: 'center',
 						}}
 					>
 						© 2026 PRIVATE KITCHEN
