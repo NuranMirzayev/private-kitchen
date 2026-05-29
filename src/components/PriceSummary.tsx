@@ -1,4 +1,8 @@
 import { Box, Typography } from '@mui/material'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { createOrder } from '../services/order.service'
+import type { Order } from '../types/order'
 
 type MenuItem = {
 	name: string
@@ -17,6 +21,7 @@ type Props = {
 	location: string
 	name: string
 	phone: string
+	date: string
 }
 
 const PriceSummary = ({
@@ -26,6 +31,7 @@ const PriceSummary = ({
 	location,
 	name,
 	phone,
+	date,
 }: Props) => {
 	const totalPerPerson = selectedItems.reduce(
 		(acc, item) => acc + item.price,
@@ -36,6 +42,63 @@ const PriceSummary = ({
 
 	const total = (totalPerPerson + extrasPrice) * guests
 
+	const order: Order = {
+		name,
+		phone,
+
+		location,
+
+		date,
+
+		guests,
+
+		menu: selectedItems,
+
+		extras,
+
+		total,
+
+		createdAt: new Date().toISOString(),
+
+		status: 'new',
+	}
+
+	const isValid =
+		name.trim() !== '' &&
+		phone.trim() !== '' &&
+		selectedItems.length > 0 &&
+		guests > 0
+
+	const [loading, setLoading] = useState(false)
+	// const [success, setSuccess] = useState(false)
+
+	const handleCreateOrder = async () => {
+		if (!isValid) {
+			toast.error('Please fill all required fields')
+
+			return
+		}
+
+		setLoading(true)
+
+		try {
+			await createOrder(order)
+
+			toast.success('Order Created Successfully')
+
+			window.open(
+				`https://wa.me/972587802226?text=${encodeURIComponent(
+					whatsappMessage,
+				)}`,
+				'_blank',
+			)
+		} catch {
+			toast.error('Failed to create order')
+		} finally {
+			setLoading(false)
+		}
+	}
+
 	const whatsappMessage = `
 New Catering Order
 
@@ -44,6 +107,7 @@ Phone: ${phone}
 
 Guests: ${guests}
 Location: ${location}
+Date: ${date}
 
 Menu:
 ${selectedItems.map(item => item.name).join(', ')}
@@ -116,26 +180,67 @@ Total: ₪${total}
 					marginTop: '32px',
 				}}
 			>
-				<a
-					href={`https://wa.me/972587802226?text=${encodeURIComponent(
-						whatsappMessage,
-					)}`}
-					target='_blank'
-					style={{ textDecoration: 'none' }}
+				<Box
+					onClick={handleCreateOrder}
+					sx={{
+						background: '#25D366',
+
+						padding: '16px',
+
+						borderRadius: '14px',
+
+						textAlign: 'center',
+
+						fontWeight: 700,
+
+						color: 'white',
+
+						cursor: 'pointer',
+
+						opacity: !isValid ? 0.5 : 1,
+
+						pointerEvents: !isValid ? 'none' : 'auto',
+
+						transition: '0.3s',
+
+						'&:hover': {
+							transform: 'translateY(-2px)',
+						},
+					}}
 				>
-					<Box
+					{loading ? 'Creating Order...' : 'ORDER WHATSAPP'}
+				</Box>
+
+				{/* {!isValid && (
+					<Typography
 						sx={{
-							background: '#25D366',
-							padding: '16px',
-							borderRadius: '14px',
+							color: '#ff6b6b',
+
+							marginTop: '12px',
+
+							fontSize: '14px',
+
 							textAlign: 'center',
-							fontWeight: 700,
-							color: 'white',
 						}}
 					>
-						ORDER WHATSAPP
-					</Box>
-				</a>
+						Please fill all required fields
+					</Typography>
+				)}
+				{success && (
+					<Typography
+						sx={{
+							color: '#25D366',
+
+							marginTop: '12px',
+
+							textAlign: 'center',
+
+							fontWeight: 700,
+						}}
+					>
+						Order Created Successfully
+					</Typography>
+				)} */}
 			</Box>
 		</Box>
 	)

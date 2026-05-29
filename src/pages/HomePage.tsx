@@ -6,6 +6,7 @@ import FeaturesSection from '../sections/FeaturesSection'
 import GallerySection from '../sections/GallerySection'
 import HeroSection from '../sections/HeroSection'
 import PackagesSection from '../sections/PackagesSection'
+import StatsSection from '../sections/StatsSection'
 
 const HomePage = () => {
 	return (
@@ -15,6 +16,8 @@ const HomePage = () => {
 			<HeroSection />
 
 			<FeaturesSection />
+
+			<StatsSection />
 
 			<PackagesSection />
 

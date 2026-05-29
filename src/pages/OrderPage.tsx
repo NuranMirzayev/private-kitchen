@@ -104,6 +104,7 @@ const OrderPage = () => {
 							location={location}
 							name={name}
 							phone={phone}
+							date={date?.format('DD/MM/YYYY') || ''}
 						/>
 					</Box>
 				</Box>
