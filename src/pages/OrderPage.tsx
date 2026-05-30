@@ -26,12 +26,13 @@ const OrderPage = () => {
 
 	const [name, setName] = useState('')
 
-	const [phone, setPhone] = useState('')
-
 	const [extras, setExtras] = useState<MenuItem[]>([])
 	const [guests, setGuests] = useState(1)
 
 	const [selectedItems, setSelectedItems] = useState<MenuItem[]>([])
+
+	const [prefix, setPrefix] = useState('')
+	const [phone, setPhone] = useState('')
 
 	return (
 		<>
@@ -93,6 +94,8 @@ const OrderPage = () => {
 								setName={setName}
 								phone={phone}
 								setPhone={setPhone}
+								prefix={prefix}
+								setPrefix={setPrefix}
 							/>
 							<ExtrasSelector extras={extras} setExtras={setExtras} />
 						</Box>
@@ -104,6 +107,7 @@ const OrderPage = () => {
 							location={location}
 							name={name}
 							phone={phone}
+							prefix={prefix}
 							date={date?.format('DD/MM/YYYY') || ''}
 						/>
 					</Box>

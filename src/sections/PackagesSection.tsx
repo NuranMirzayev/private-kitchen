@@ -26,12 +26,13 @@ const packages = [
 
 const PackagesSection = () => {
 	return (
-		<MainContainer id='packages'>
+		<MainContainer>
 			<Box
+				id='packages'
 				sx={{
 					marginTop: {
 						xs: '80px',
-						md: '140px',
+						md: '5px',
 					},
 				}}
 			>

@@ -3,8 +3,9 @@ import MainContainer from '../layout/MainContainer'
 
 const CTASection = () => {
 	return (
-		<MainContainer id='contact'>
+		<MainContainer>
 			<Box
+				id='contact'
 				sx={{
 					marginTop: '120px',
 					marginBottom: '120px',

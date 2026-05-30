@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, MenuItem, TextField, Typography } from '@mui/material'
 
 type Props = {
 	name: string
@@ -6,9 +6,19 @@ type Props = {
 
 	phone: string
 	setPhone: (value: string) => void
+
+	prefix: string
+	setPrefix: (value: string) => void
 }
 
-const ContactForm = ({ name, setName, phone, setPhone }: Props) => {
+const ContactForm = ({
+	name,
+	setName,
+	phone,
+	setPhone,
+	prefix,
+	setPrefix,
+}: Props) => {
 	return (
 		<Box
 			sx={{
@@ -42,12 +52,43 @@ const ContactForm = ({ name, setName, phone, setPhone }: Props) => {
 					fullWidth
 				/>
 
-				<TextField
-					label='Phone Number'
-					value={phone}
-					onChange={e => setPhone(e.target.value)}
-					fullWidth
-				/>
+				<Box
+					sx={{
+						display: 'flex',
+						gap: '12px',
+					}}
+				>
+					<TextField
+						select
+						value={prefix}
+						onChange={e => setPrefix(e.target.value)}
+						sx={{
+							width: '120px',
+						}}
+					>
+						<MenuItem value='050'>050</MenuItem>
+						<MenuItem value='051'>051</MenuItem>
+						<MenuItem value='052'>052</MenuItem>
+						<MenuItem value='053'>053</MenuItem>
+						<MenuItem value='054'>054</MenuItem>
+						<MenuItem value='055'>055</MenuItem>
+						<MenuItem value='058'>058</MenuItem>
+					</TextField>
+
+					<TextField
+						label='Phone'
+						placeholder='1234567'
+						value={phone}
+						onChange={e => {
+							const value = e.target.value.replace(/\D/g, '')
+
+							if (value.length <= 7) {
+								setPhone(value)
+							}
+						}}
+						fullWidth
+					/>
+				</Box>
 			</Box>
 		</Box>
 	)

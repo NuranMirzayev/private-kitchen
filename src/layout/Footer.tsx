@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import logoStaled from '../assets/logo-staled.png'
 
 const Footer = () => {
 	return (
@@ -32,46 +33,44 @@ const Footer = () => {
 					gap: '32px',
 				}}
 			>
-				<Box>
-					<Typography
-						variant='h5'
-						sx={{
-							fontWeight: 800,
-
-							color: '#d4a017',
-
-							marginBottom: '12px',
-						}}
-					>
-						PRIVATE KITCHEN
-					</Typography>
-
-					<Typography
-						sx={{
-							color: '#777',
-							maxWidth: '320px',
-						}}
-					>
-						Premium BBQ catering for unforgettable private events.
-					</Typography>
-				</Box>
-
 				<Box
+					component='img'
+					src={logoStaled}
+					alt='Private Kitchen'
 					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'center',
+						height: '90px',
+
+						objectFit: 'contain',
+
+						marginBottom: '12px',
+					}}
+				/>
+
+				<Typography
+					sx={{
+						color: '#777',
+						maxWidth: '320px',
 					}}
 				>
-					<Typography
-						sx={{
-							color: '#777',
-							textAlign: 'center',
-						}}
-					>
-						© 2026 PRIVATE KITCHEN
-					</Typography>
-				</Box>
+					Premium BBQ catering for unforgettable private events.
+				</Typography>
+			</Box>
+
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+				}}
+			>
+				<Typography
+					sx={{
+						color: '#777',
+						textAlign: 'center',
+					}}
+				>
+					© 2026 PRIVATE KITCHEN
+				</Typography>
 			</Box>
 		</Box>
 	)

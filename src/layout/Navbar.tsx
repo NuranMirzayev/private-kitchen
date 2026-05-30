@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import scrollToSection from '../utils/scrollToSection'
 
+import logoNavbar from '../assets/logo-navbar.png'
+
 const Navbar = () => {
 	const [mobileMenu, setMobileMenu] = useState(false)
 
@@ -53,20 +55,22 @@ const Navbar = () => {
 			>
 				{/* Logo */}
 
-				<Typography
+				<Box
+					component='img'
+					src={logoNavbar}
+					alt='Private Kitchen'
 					onClick={() => scrollToSection('home')}
 					sx={{
-						fontWeight: 800,
-
-						color: '#d4a017',
-
-						fontSize: '22px',
+						height: {
+							xs: '45px',
+							md: '55px',
+						},
 
 						cursor: 'pointer',
+
+						objectFit: 'contain',
 					}}
-				>
-					PRIVATE KITCHEN
-				</Typography>
+				/>
 
 				{/* Desktop Menu */}
 

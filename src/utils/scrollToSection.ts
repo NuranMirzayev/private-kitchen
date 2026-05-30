@@ -1,6 +1,4 @@
 const scrollToSection = (id: string) => {
-	// if user is on another page
-
 	if (window.location.pathname !== '/') {
 		sessionStorage.setItem('scroll-target', id)
 
@@ -9,15 +7,23 @@ const scrollToSection = (id: string) => {
 		return
 	}
 
-	// scroll on homepage
-
 	const section = document.getElementById(id)
 
-	if (section) {
-		section.scrollIntoView({
-			behavior: 'smooth',
-		})
-	}
+	if (!section) return
+
+	const navbarHeight = 360
+
+	const y = section.getBoundingClientRect().top + window.scrollY - navbarHeight
+
+	console.log('SECTION:', id)
+	console.log('offsetTop:', section.offsetTop)
+	console.log('window.scrollY:', window.scrollY)
+	console.log('final y:', y)
+
+	window.scrollTo({
+		top: y,
+		behavior: 'smooth',
+	})
 }
 
 export default scrollToSection

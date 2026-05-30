@@ -1,12 +1,14 @@
 import { Box, Button, Typography } from '@mui/material'
 
+import logoStaled from '../assets/logo-staled.png'
 import FadeIn from '../components/FadeIn'
 import MainContainer from '../layout/MainContainer'
 
 const HeroSection = () => {
 	return (
-		<MainContainer id='home'>
+		<MainContainer>
 			<Box
+				id='home'
 				sx={{
 					display: 'grid',
 
@@ -24,6 +26,14 @@ const HeroSection = () => {
 			>
 				<FadeIn>
 					<Box>
+						<Box
+							component='img'
+							src={logoStaled}
+							sx={{
+								height: '150px',
+								marginBottom: '20px',
+							}}
+						/>
 						<Typography
 							sx={{
 								color: '#d4a017',

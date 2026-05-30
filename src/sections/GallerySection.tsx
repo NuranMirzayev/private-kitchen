@@ -11,8 +11,9 @@ const GallerySection = () => {
 	return (
 		<MainContainer id='gallery'>
 			<Box
+				id='gallery'
 				sx={{
-					marginTop: '120px',
+					marginBottom: '120px',
 				}}
 			>
 				<Typography

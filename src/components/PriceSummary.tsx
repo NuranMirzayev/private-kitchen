@@ -22,6 +22,7 @@ type Props = {
 	name: string
 	phone: string
 	date: string
+	prefix: string
 }
 
 const PriceSummary = ({
@@ -31,6 +32,7 @@ const PriceSummary = ({
 	location,
 	name,
 	phone,
+	prefix,
 	date,
 }: Props) => {
 	const totalPerPerson = selectedItems.reduce(
@@ -44,28 +46,23 @@ const PriceSummary = ({
 
 	const order: Order = {
 		name,
-		phone,
+		phone: `${prefix}${phone}`,
 
 		location,
-
 		date,
-
 		guests,
-
 		menu: selectedItems,
-
 		extras,
-
 		total,
 
 		createdAt: new Date().toISOString(),
-
 		status: 'new',
 	}
+	const israeliPhoneRegex = /^[0-9]{7}$/
 
 	const isValid =
 		name.trim() !== '' &&
-		phone.trim() !== '' &&
+		israeliPhoneRegex.test(phone) &&
 		selectedItems.length > 0 &&
 		guests > 0
 
@@ -73,6 +70,20 @@ const PriceSummary = ({
 	// const [success, setSuccess] = useState(false)
 
 	const handleCreateOrder = async () => {
+		if (!name.trim()) {
+			toast.error('Please enter your name')
+			return
+		}
+
+		if (!israeliPhoneRegex.test(phone.replace(/\D/g, ''))) {
+			toast.error('Please enter a valid Israeli phone number')
+			return
+		}
+
+		if (selectedItems.length === 0) {
+			toast.error('Please select menu items')
+			return
+		}
 		if (!isValid) {
 			toast.error('Please fill all required fields')
 
@@ -103,7 +114,7 @@ const PriceSummary = ({
 New Catering Order
 
 Name: ${name}
-Phone: ${phone}
+Phone: ${prefix}${phone}
 
 Guests: ${guests}
 Location: ${location}
@@ -210,37 +221,6 @@ Total: ₪${total}
 				>
 					{loading ? 'Creating Order...' : 'ORDER WHATSAPP'}
 				</Box>
-
-				{/* {!isValid && (
-					<Typography
-						sx={{
-							color: '#ff6b6b',
-
-							marginTop: '12px',
-
-							fontSize: '14px',
-
-							textAlign: 'center',
-						}}
-					>
-						Please fill all required fields
-					</Typography>
-				)}
-				{success && (
-					<Typography
-						sx={{
-							color: '#25D366',
-
-							marginTop: '12px',
-
-							textAlign: 'center',
-
-							fontWeight: 700,
-						}}
-					>
-						Order Created Successfully
-					</Typography>
-				)} */}
 			</Box>
 		</Box>
 	)
