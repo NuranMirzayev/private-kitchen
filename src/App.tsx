@@ -7,6 +7,10 @@ import Preloader from './components/Preloader'
 import HomePage from './pages/HomePage'
 import OrderPage from './pages/OrderPage'
 
+import WhatsappButton from './components/WhatsappButton'
+
+import AdminPage from './pages/AdminPage'
+
 const ScrollHandler = () => {
 	useEffect(() => {
 		const target = sessionStorage.getItem('scroll-target')
@@ -43,7 +47,7 @@ function App() {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setLoading(false)
-		}, 1800)
+		}, 2000)
 
 		return () => clearTimeout(timer)
 	}, [])
@@ -60,7 +64,10 @@ function App() {
 				<Route path='/' element={<HomePage />} />
 
 				<Route path='/order' element={<OrderPage />} />
+				<Route path='/admin' element={<AdminPage />} />
 			</Routes>
+
+			<WhatsappButton />
 		</BrowserRouter>
 	)
 }
