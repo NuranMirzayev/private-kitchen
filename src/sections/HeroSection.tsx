@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from '@mui/material'
 
-import logoStaled from '../assets/logo-staled.png'
 import FadeIn from '../components/FadeIn'
 import MainContainer from '../layout/MainContainer'
 
@@ -17,23 +16,28 @@ const HeroSection = () => {
 						md: '1fr 1fr',
 					},
 
-					gap: '40px',
+					gap: {
+						xs: '20px',
+						md: '40px',
+					},
 
 					alignItems: 'center',
 
-					minHeight: '85vh',
+					minHeight: {
+						xs: 'auto',
+						md: '85vh',
+					},
 				}}
 			>
 				<FadeIn>
-					<Box>
-						<Box
-							component='img'
-							src={logoStaled}
-							sx={{
-								height: '150px',
-								marginBottom: '20px',
-							}}
-						/>
+					<Box
+						sx={{
+							paddingTop: {
+								xs: '20px',
+								md: 0,
+							},
+						}}
+					>
 						<Typography
 							sx={{
 								color: '#d4a017',
@@ -55,7 +59,7 @@ const HeroSection = () => {
 								marginBottom: '24px',
 
 								fontSize: {
-									xs: '52px',
+									xs: '42px',
 									md: '92px',
 								},
 							}}
@@ -73,7 +77,10 @@ const HeroSection = () => {
 
 								maxWidth: '520px',
 
-								marginBottom: '40px',
+								marginBottom: {
+									xs: '24px',
+									md: '40px',
+								},
 
 								lineHeight: 1.8,
 							}}
@@ -87,7 +94,10 @@ const HeroSection = () => {
 							variant='contained'
 							sx={{
 								background: '#d4a017',
-
+								width: {
+									xs: '100%',
+									md: 'auto',
+								},
 								color: 'black',
 
 								padding: '14px 32px',
@@ -120,7 +130,7 @@ const HeroSection = () => {
 							position: 'relative',
 
 							height: {
-								xs: '400px',
+								xs: '280px',
 								md: '700px',
 							},
 

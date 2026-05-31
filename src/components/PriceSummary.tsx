@@ -62,6 +62,7 @@ const PriceSummary = ({
 
 	const isValid =
 		name.trim() !== '' &&
+		location.trim() !== '' &&
 		israeliPhoneRegex.test(phone) &&
 		selectedItems.length > 0 &&
 		guests > 0

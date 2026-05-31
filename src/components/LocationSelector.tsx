@@ -1,11 +1,34 @@
-import { Box, MenuItem, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
 
 type Props = {
-	location: string
-	setLocation: (value: string) => void
+	city: string
+	setCity: (value: string) => void
+
+	street: string
+	setStreet: (value: string) => void
+
+	houseNumber: string
+	setHouseNumber: (value: string) => void
+
+	apartment: string
+	setApartment: (value: string) => void
+
+	notes: string
+	setNotes: (value: string) => void
 }
 
-const LocationSelector = ({ location, setLocation }: Props) => {
+const LocationSelector = ({
+	city,
+	setCity,
+	street,
+	setStreet,
+	houseNumber,
+	setHouseNumber,
+	apartment,
+	setApartment,
+	notes,
+	setNotes,
+}: Props) => {
 	return (
 		<Box
 			sx={{
@@ -22,25 +45,53 @@ const LocationSelector = ({ location, setLocation }: Props) => {
 					fontWeight: 700,
 				}}
 			>
-				Event Location
+				Event Address
 			</Typography>
 
-			<TextField
-				select
-				fullWidth
-				value={location}
-				onChange={e => setLocation(e.target.value)}
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					gap: '16px',
+				}}
 			>
-				<MenuItem value='Jerusalem'>Jerusalem</MenuItem>
+				<TextField
+					label='City'
+					value={city}
+					onChange={e => setCity(e.target.value)}
+					fullWidth
+				/>
 
-				<MenuItem value='Tel Aviv'>Tel Aviv</MenuItem>
+				<TextField
+					label='Street'
+					value={street}
+					onChange={e => setStreet(e.target.value)}
+					fullWidth
+				/>
 
-				<MenuItem value='Haifa'>Haifa</MenuItem>
+				<TextField
+					label='House Number'
+					value={houseNumber}
+					onChange={e => setHouseNumber(e.target.value)}
+					fullWidth
+				/>
 
-				<MenuItem value='Home Event'>Home Event</MenuItem>
+				<TextField
+					label='Apartment (optional)'
+					value={apartment}
+					onChange={e => setApartment(e.target.value)}
+					fullWidth
+				/>
 
-				<MenuItem value='Park'>Park</MenuItem>
-			</TextField>
+				<TextField
+					label='Additional Notes'
+					value={notes}
+					onChange={e => setNotes(e.target.value)}
+					fullWidth
+					multiline
+					rows={3}
+				/>
+			</Box>
 		</Box>
 	)
 }

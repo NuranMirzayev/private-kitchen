@@ -22,7 +22,11 @@ type MenuItem = {
 const OrderPage = () => {
 	const [date, setDate] = useState<Dayjs | null>(dayjs())
 
-	const [location, setLocation] = useState('Jerusalem')
+	const [city, setCity] = useState('')
+	const [street, setStreet] = useState('')
+	const [houseNumber, setHouseNumber] = useState('')
+	const [apartment, setApartment] = useState('')
+	const [notes, setNotes] = useState('')
 
 	const [name, setName] = useState('')
 
@@ -33,6 +37,15 @@ const OrderPage = () => {
 
 	const [prefix, setPrefix] = useState('')
 	const [phone, setPhone] = useState('')
+
+	const location = [
+		city,
+		`${street} ${houseNumber}`,
+		apartment ? `Apartment ${apartment}` : '',
+		notes,
+	]
+		.filter(Boolean)
+		.join(', ')
 
 	return (
 		<>
@@ -88,7 +101,18 @@ const OrderPage = () => {
 								selectedItems={selectedItems}
 								setSelectedItems={setSelectedItems}
 							/>
-							<LocationSelector location={location} setLocation={setLocation} />
+							<LocationSelector
+								city={city}
+								setCity={setCity}
+								street={street}
+								setStreet={setStreet}
+								houseNumber={houseNumber}
+								setHouseNumber={setHouseNumber}
+								apartment={apartment}
+								setApartment={setApartment}
+								notes={notes}
+								setNotes={setNotes}
+							/>
 							<ContactForm
 								name={name}
 								setName={setName}
