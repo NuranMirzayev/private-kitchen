@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import scrollToSection from '../utils/scrollToSection'
 
-import logoNavbar from '../assets/logo-navbar.png'
+import logoNavbar from '../assets/logo-icon.png'
 
 const Navbar = () => {
 	const [mobileMenu, setMobileMenu] = useState(false)
@@ -43,9 +43,12 @@ const Navbar = () => {
 
 					margin: '0 auto',
 
-					display: 'flex',
+					position: 'relative',
 
-					justifyContent: 'space-between',
+					justifyContent: {
+						xs: 'center',
+						md: 'space-between',
+					},
 
 					padding: {
 						xs: '10px 20px',
@@ -62,13 +65,21 @@ const Navbar = () => {
 					onClick={() => scrollToSection('home')}
 					sx={{
 						height: {
-							xs: '45px',
-							md: '55px',
+							xs: '65px',
+							md: '75px',
 						},
 
 						cursor: 'pointer',
 
 						objectFit: 'contain',
+
+						filter: 'drop-shadow(0 0 15px rgba(212,160,23,0.35))',
+
+						transition: '0.3s',
+
+						'&:hover': {
+							transform: 'scale(1.05)',
+						},
 					}}
 				/>
 
@@ -150,11 +161,21 @@ const Navbar = () => {
 							md: 'none',
 						},
 
+						position: 'absolute',
+
+						right: '20px',
+
+						top: '50%',
+
+						transform: 'translateY(-50%)',
+
 						fontSize: '28px',
 
 						cursor: 'pointer',
 
 						userSelect: 'none',
+
+						color: 'white',
 					}}
 				>
 					☰
