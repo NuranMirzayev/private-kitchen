@@ -171,6 +171,16 @@ const Navbar = () => {
 							md: 'none',
 						},
 
+						position: 'fixed',
+
+						top: '63px',
+
+						left: 0,
+
+						right: 0,
+
+						zIndex: 999,
+
 						flexDirection: 'column',
 
 						padding: '24px',
@@ -182,6 +192,8 @@ const Navbar = () => {
 						background: 'rgba(10,10,10,0.96)',
 
 						backdropFilter: 'blur(20px)',
+
+						boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
 					}}
 				>
 					<Typography
