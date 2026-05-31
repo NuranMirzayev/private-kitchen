@@ -47,6 +47,9 @@ const OrderPage = () => {
 		.filter(Boolean)
 		.join(', ')
 
+	const isAddressValid =
+		city.trim() !== '' && street.trim() !== '' && houseNumber.trim() !== ''
+
 	return (
 		<>
 			<Navbar />

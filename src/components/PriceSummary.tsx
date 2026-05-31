@@ -76,6 +76,11 @@ const PriceSummary = ({
 			return
 		}
 
+		if (!location.trim()) {
+			toast.error('Please enter event address')
+			return
+		}
+
 		if (!israeliPhoneRegex.test(phone.replace(/\D/g, ''))) {
 			toast.error('Please enter a valid Israeli phone number')
 			return
@@ -85,25 +90,25 @@ const PriceSummary = ({
 			toast.error('Please select menu items')
 			return
 		}
+
 		if (!isValid) {
 			toast.error('Please fill all required fields')
-
 			return
 		}
 
 		setLoading(true)
 
 		try {
-			await createOrder(order)
-
-			toast.success('Order Created Successfully')
-
 			window.open(
 				`https://wa.me/972587802226?text=${encodeURIComponent(
 					whatsappMessage,
 				)}`,
 				'_blank',
 			)
+
+			await createOrder(order)
+
+			toast.success('Order Created Successfully')
 		} catch {
 			toast.error('Failed to create order')
 		} finally {
@@ -158,6 +163,27 @@ Total: ₪${total}
 				}}
 			>
 				Guests: {guests}
+			</Typography>
+
+			<Typography sx={{ color: '#999' }}>👤 {name || 'No name'}</Typography>
+
+			<Typography
+				sx={{
+					color: '#999',
+					marginBottom: '12px',
+				}}
+			>
+				📞 {prefix}
+				{phone}
+			</Typography>
+
+			<Typography
+				sx={{
+					color: '#999',
+					marginBottom: '12px',
+				}}
+			>
+				📍 {location || 'No address'}
 			</Typography>
 
 			<Box
@@ -220,7 +246,7 @@ Total: ₪${total}
 						},
 					}}
 				>
-					{loading ? 'Creating Order...' : 'ORDER WHATSAPP'}
+					{loading ? 'Creating Order...' : 'PLACE ORDER'}
 				</Box>
 			</Box>
 		</Box>
