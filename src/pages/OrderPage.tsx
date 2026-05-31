@@ -136,6 +136,7 @@ const OrderPage = () => {
 							phone={phone}
 							prefix={prefix}
 							date={date?.format('DD/MM/YYYY') || ''}
+							isAddressValid={isAddressValid}
 						/>
 					</Box>
 				</Box>

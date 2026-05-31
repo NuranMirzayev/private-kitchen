@@ -23,6 +23,7 @@ type Props = {
 	phone: string
 	date: string
 	prefix: string
+	isAddressValid: boolean
 }
 
 const PriceSummary = ({
@@ -34,6 +35,7 @@ const PriceSummary = ({
 	phone,
 	prefix,
 	date,
+	isAddressValid,
 }: Props) => {
 	const totalPerPerson = selectedItems.reduce(
 		(acc, item) => acc + item.price,
@@ -62,7 +64,7 @@ const PriceSummary = ({
 
 	const isValid =
 		name.trim() !== '' &&
-		location.trim() !== '' &&
+		isAddressValid &&
 		israeliPhoneRegex.test(phone) &&
 		selectedItems.length > 0 &&
 		guests > 0
