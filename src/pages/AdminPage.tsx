@@ -63,6 +63,7 @@ const AdminPage = () => {
 				sx={{
 					display: 'flex',
 					justifyContent: 'space-between',
+
 					// alignItems: 'center',
 					// flexWrap: 'wrap',
 					// gap: '12px',
@@ -80,15 +81,18 @@ const AdminPage = () => {
 				<Box
 					onClick={handleLogout}
 					sx={{
-						height: 'fit-content',
+						height: '40px',
 						background: '#e74c3c',
 						color: 'white',
 						padding: '10px 16px',
 						borderRadius: '10px',
-						display: 'inline-block',
 						cursor: 'pointer',
 						fontWeight: 700,
 						marginBottom: '24px',
+						textAlign: 'center',
+						lineHeight: '20px',
+						fontSize: '14px',
+						whiteSpace: 'nowrap',
 					}}
 				>
 					Logout
