@@ -89,7 +89,7 @@ const AdminPage = () => {
 						cursor: 'pointer',
 						fontWeight: 700,
 						marginBottom: '24px',
-						marginTop: '10px',
+						marginTop: '8px',
 						textAlign: 'center',
 						lineHeight: '20px',
 						fontSize: '14px',
