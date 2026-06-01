@@ -63,9 +63,9 @@ const AdminPage = () => {
 				sx={{
 					display: 'flex',
 					justifyContent: 'space-between',
-					alignItems: 'center',
-					flexWrap: 'wrap',
-					gap: '12px',
+					// alignItems: 'center',
+					// flexWrap: 'wrap',
+					// gap: '12px',
 				}}
 			>
 				<Typography
