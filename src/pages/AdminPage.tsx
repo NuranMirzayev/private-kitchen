@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { getOrders, updateOrderStatus } from '../services/admin.service'
 
@@ -16,6 +17,12 @@ type Order = {
 
 const AdminPage = () => {
 	const [orders, setOrders] = useState<Order[]>([])
+	const navigate = useNavigate()
+
+	const handleLogout = () => {
+		localStorage.removeItem('admin-auth')
+		navigate('/admin-login')
+	}
 
 	const handleStatusChange = async (id: string, status: string) => {
 		try {
@@ -31,9 +38,14 @@ const AdminPage = () => {
 
 	useEffect(() => {
 		const loadOrders = async () => {
-			const data = (await getOrders()) as Order[]
+			const data = await getOrders()
 
-			setOrders(data)
+			setOrders(
+				data.map(order => ({
+					...order,
+					status: order.status || 'new',
+				})),
+			)
 		}
 
 		loadOrders()
@@ -47,16 +59,41 @@ const AdminPage = () => {
 				margin: '0 auto',
 			}}
 		>
-			<Typography
-				variant='h3'
+			<Box
 				sx={{
-					fontWeight: 800,
-					marginBottom: '40px',
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					flexWrap: 'wrap',
+					gap: '12px',
 				}}
 			>
-				ORDERS
-			</Typography>
-
+				<Typography
+					variant='h3'
+					sx={{
+						fontWeight: 800,
+						marginBottom: '40px',
+					}}
+				>
+					ORDERS
+				</Typography>
+				<Box
+					onClick={handleLogout}
+					sx={{
+						height: 'fit-content',
+						background: '#e74c3c',
+						color: 'white',
+						padding: '10px 16px',
+						borderRadius: '10px',
+						display: 'inline-block',
+						cursor: 'pointer',
+						fontWeight: 700,
+						marginBottom: '24px',
+					}}
+				>
+					Logout
+				</Box>
+			</Box>
 			<Box
 				sx={{
 					display: 'flex',
@@ -109,9 +146,9 @@ const AdminPage = () => {
 							sx={{
 								marginTop: '16px',
 								background:
-									order.status === 'completed'
+									(order.status || 'new') === 'completed'
 										? '#3498db'
-										: order.status === 'confirmed'
+										: (order.status || 'new') === 'confirmed'
 											? '#2ecc71'
 											: '#d4a017',
 
@@ -126,7 +163,7 @@ const AdminPage = () => {
 								fontWeight: 700,
 							}}
 						>
-							{order.status.toUpperCase()}
+							{(order.status || 'new').toUpperCase()}
 						</Typography>
 
 						<Box

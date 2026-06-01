@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 
 import { useState } from 'react'
 import Preloader from './components/Preloader'
+import ProtectedRoute from './components/ProtectedRoute'
+import AdminLoginPage from './pages/AdminLoginPage'
 import HomePage from './pages/HomePage'
 import OrderPage from './pages/OrderPage'
 
@@ -64,7 +66,17 @@ function App() {
 				<Route path='/' element={<HomePage />} />
 
 				<Route path='/order' element={<OrderPage />} />
-				<Route path='/admin' element={<AdminPage />} />
+
+				<Route path='/admin-login' element={<AdminLoginPage />} />
+
+				<Route
+					path='/admin'
+					element={
+						<ProtectedRoute>
+							<AdminPage />
+						</ProtectedRoute>
+					}
+				/>
 			</Routes>
 
 			<WhatsappButton />
