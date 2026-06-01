@@ -63,37 +63,34 @@ const AdminPage = () => {
 				sx={{
 					display: 'flex',
 					justifyContent: 'space-between',
-
-					// alignItems: 'center',
-					// flexWrap: 'wrap',
-					// gap: '12px',
+					alignItems: 'center',
+					marginBottom: '40px',
 				}}
 			>
 				<Typography
 					variant='h3'
 					sx={{
 						fontWeight: 800,
-						marginBottom: '40px',
+						margin: 0,
 					}}
 				>
 					ORDERS
 				</Typography>
+
 				<Box
 					onClick={handleLogout}
 					sx={{
-						height: '40px',
 						background: '#e74c3c',
 						color: 'white',
 						padding: '10px 20px',
 						borderRadius: '10px',
 						cursor: 'pointer',
 						fontWeight: 700,
-						marginBottom: '24px',
-						marginTop: '8px',
-						textAlign: 'center',
-						lineHeight: '20px',
-						fontSize: '14px',
-						whiteSpace: 'nowrap',
+						transition: '0.3s',
+
+						'&:hover': {
+							transform: 'translateY(-2px)',
+						},
 					}}
 				>
 					Logout
