@@ -13,6 +13,7 @@ import GuestCounter from '../components/GuestCounter'
 import LocationSelector from '../components/LocationSelector'
 import MenuSelector from '../components/MenuSelector'
 import PriceSummary from '../components/PriceSummary'
+import TimeSelector from '../components/TimeSelector'
 
 type MenuItem = {
 	name: string
@@ -20,8 +21,6 @@ type MenuItem = {
 }
 
 const OrderPage = () => {
-	const [date, setDate] = useState<Dayjs | null>(dayjs())
-
 	const [city, setCity] = useState('')
 	const [street, setStreet] = useState('')
 	const [houseNumber, setHouseNumber] = useState('')
@@ -37,12 +36,18 @@ const OrderPage = () => {
 
 	const [prefix, setPrefix] = useState('')
 	const [phone, setPhone] = useState('')
+	const [email, setEmail] = useState('')
+	const [date, setDate] = useState<Dayjs | null>(dayjs())
+	const [time, setTime] = useState('')
+
+	const isToday = date ? date.isSame(dayjs(), 'day') : false
 
 	const handleOrderSuccess = () => {
+		setTime('')
 		setName('')
 		setPhone('')
 		setPrefix('')
-
+		setEmail('')
 		setGuests(1)
 
 		setSelectedItems([])
@@ -119,6 +124,8 @@ const OrderPage = () => {
 							<GuestCounter guests={guests} setGuests={setGuests} />
 							<DateSelector date={date} setDate={setDate} />
 
+							<TimeSelector time={time} setTime={setTime} isToday={isToday} />
+
 							<MenuSelector
 								selectedItems={selectedItems}
 								setSelectedItems={setSelectedItems}
@@ -142,6 +149,8 @@ const OrderPage = () => {
 								setPhone={setPhone}
 								prefix={prefix}
 								setPrefix={setPrefix}
+								email={email}
+								setEmail={setEmail}
 							/>
 							<ExtrasSelector extras={extras} setExtras={setExtras} />
 						</Box>
@@ -157,6 +166,8 @@ const OrderPage = () => {
 							date={date?.format('DD/MM/YYYY') || ''}
 							isAddressValid={isAddressValid}
 							onOrderSuccess={handleOrderSuccess}
+							time={time}
+							email={email}
 						/>
 					</Box>
 				</Box>

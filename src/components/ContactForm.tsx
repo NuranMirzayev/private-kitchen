@@ -9,6 +9,9 @@ type Props = {
 
 	prefix: string
 	setPrefix: (value: string) => void
+
+	email: string
+	setEmail: (value: string) => void
 }
 
 const ContactForm = ({
@@ -18,6 +21,8 @@ const ContactForm = ({
 	setPhone,
 	prefix,
 	setPrefix,
+	email,
+	setEmail,
 }: Props) => {
 	return (
 		<Box
@@ -51,7 +56,13 @@ const ContactForm = ({
 					onChange={e => setName(e.target.value)}
 					fullWidth
 				/>
-
+				<TextField
+					label='Email'
+					type='email'
+					value={email}
+					onChange={e => setEmail(e.target.value)}
+					fullWidth
+				/>
 				<Box
 					sx={{
 						display: 'flex',

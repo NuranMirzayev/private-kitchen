@@ -21,9 +21,10 @@ type Order = {
 	guests: number
 	total: number
 	date: string
+	time?: string
 	location: string
 	status: string
-
+	email: string
 	menu?: MenuItem[]
 	extras?: MenuItem[]
 }
@@ -291,7 +292,8 @@ const AdminPage = () => {
 					.filter(order => {
 						const matchesSearch =
 							order.name.toLowerCase().includes(search.toLowerCase()) ||
-							order.phone.includes(search)
+							order.phone.includes(search) ||
+							(order.email || '').toLowerCase().includes(search.toLowerCase())
 
 						const matchesStatus =
 							statusFilter === 'all' || (order.status || 'new') === statusFilter
@@ -316,6 +318,15 @@ const AdminPage = () => {
 								}}
 							>
 								👤 {order.name}
+							</Typography>
+
+							<Typography
+								sx={{
+									color: '#999',
+									marginBottom: '6px',
+								}}
+							>
+								📧 {order.email || 'No Email'}
 							</Typography>
 
 							<Typography sx={{ color: '#999' }}>📞 {order.phone}</Typography>
@@ -362,11 +373,27 @@ const AdminPage = () => {
 								</Box>
 							</Box>
 
-							<Typography sx={{ color: '#999' }}>
+							<Typography sx={{ color: '#999' }}>📅 {order.date}</Typography>
+
+							{order.time && (
+								<Typography
+									sx={{
+										color: '#999',
+										fontWeight: 600,
+									}}
+								>
+									🕒 {order.time}
+								</Typography>
+							)}
+
+							<Typography
+								sx={{
+									color: '#999',
+									marginTop: '8px',
+								}}
+							>
 								📍 {order.location}
 							</Typography>
-
-							<Typography sx={{ color: '#999' }}>📅 {order.date}</Typography>
 
 							{order.menu && order.menu.length > 0 && (
 								<Typography sx={{ color: '#999', marginTop: '8px' }}>
@@ -405,7 +432,7 @@ const AdminPage = () => {
 												? '#2ecc71'
 												: '#d4a017',
 
-									color: order.status === 'new' ? 'black' : 'white',
+									color: (order.status || 'new') === 'new' ? 'black' : 'white',
 
 									padding: '6px 12px',
 

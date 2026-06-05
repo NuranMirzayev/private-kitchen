@@ -25,6 +25,8 @@ type Props = {
 	prefix: string
 	isAddressValid: boolean
 	onOrderSuccess: () => void
+	time: string
+	email: string
 }
 
 const PriceSummary = ({
@@ -38,6 +40,8 @@ const PriceSummary = ({
 	date,
 	isAddressValid,
 	onOrderSuccess,
+	time,
+	email,
 }: Props) => {
 	const totalPerPerson = selectedItems.reduce(
 		(acc, item) => acc + item.price,
@@ -51,29 +55,36 @@ const PriceSummary = ({
 	const order: Order = {
 		name,
 		phone: `${prefix}${phone}`,
-
+		email,
 		location,
 		date,
+		time,
 		guests,
 		menu: selectedItems,
 		extras,
 		total,
-
 		createdAt: new Date().toISOString(),
 		status: 'new',
 	}
 	const israeliPhoneRegex = /^[0-9]{7}$/
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 	const isValid =
+		emailRegex.test(email) &&
 		name.trim() !== '' &&
 		isAddressValid &&
+		time.trim() !== '' &&
 		israeliPhoneRegex.test(phone) &&
 		selectedItems.length > 0 &&
 		guests > 0
 
 	const [loading, setLoading] = useState(false)
 	const [successOpen, setSuccessOpen] = useState(false)
-	// const [success, setSuccess] = useState(false)
+
+	if (!emailRegex.test(email)) {
+		toast.error('Please enter a valid email address')
+		return
+	}
 
 	const handleCreateOrder = async () => {
 		if (!name.trim()) {
@@ -93,6 +104,11 @@ const PriceSummary = ({
 
 		if (selectedItems.length === 0) {
 			toast.error('Please select menu items')
+			return
+		}
+
+		if (!time) {
+			toast.error('Please select event time')
 			return
 		}
 
@@ -127,13 +143,14 @@ const PriceSummary = ({
 
 	const whatsappMessage = `
 New Catering Order
-
+Email: ${email}
 Name: ${name}
 Phone: ${prefix}${phone}
 
 Guests: ${guests}
 Location: ${location}
 Date: ${date}
+Time: ${time}
 
 Menu:
 ${selectedItems.map(item => item.name).join(', ')}
@@ -171,14 +188,19 @@ Total: ₪${total}
 					marginBottom: '12px',
 				}}
 			>
-				Guests: {guests}
+				👥 {guests} Guests
 			</Typography>
 
-			<Typography sx={{ color: '#999' }}>👤 {name || 'No name'}</Typography>
+			<Typography sx={{ color: '#999', marginTop: '8px' }}>
+				👤 {name || 'No name'}
+			</Typography>
+
+			<Typography sx={{ color: '#999' }}>📧 {email || 'No email'}</Typography>
 
 			<Typography
 				sx={{
 					color: '#999',
+					marginTop: '8px',
 					// marginBottom: '12px',
 				}}
 			>
@@ -189,10 +211,20 @@ Total: ₪${total}
 			<Typography
 				sx={{
 					color: '#999',
-					marginBottom: '12px',
+					marginTop: '8px',
 				}}
 			>
 				📍 {location || 'No address'}
+			</Typography>
+
+			<Typography
+				sx={{
+					color: '#999',
+					marginBottom: '12px',
+					marginTop: '8px',
+				}}
+			>
+				🕒 {time}
 			</Typography>
 
 			<Box

@@ -33,6 +33,7 @@ const DateSelector = ({ date, setDate }: Props) => {
 
 			<LocalizationProvider dateAdapter={AdapterDayjs}>
 				<DatePicker
+					format='DD/MM/YYYY'
 					value={date}
 					onChange={newValue => setDate(newValue)}
 					sx={{
