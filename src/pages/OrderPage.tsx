@@ -38,6 +38,25 @@ const OrderPage = () => {
 	const [prefix, setPrefix] = useState('')
 	const [phone, setPhone] = useState('')
 
+	const handleOrderSuccess = () => {
+		setName('')
+		setPhone('')
+		setPrefix('')
+
+		setGuests(1)
+
+		setSelectedItems([])
+		setExtras([])
+
+		setCity('')
+		setStreet('')
+		setHouseNumber('')
+		setApartment('')
+		setNotes('')
+
+		setDate(dayjs())
+	}
+
 	const location = [
 		city,
 		`${street} ${houseNumber}`,
@@ -137,6 +156,7 @@ const OrderPage = () => {
 							prefix={prefix}
 							date={date?.format('DD/MM/YYYY') || ''}
 							isAddressValid={isAddressValid}
+							onOrderSuccess={handleOrderSuccess}
 						/>
 					</Box>
 				</Box>

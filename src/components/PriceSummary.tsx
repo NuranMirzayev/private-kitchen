@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Dialog, Typography } from '@mui/material'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { createOrder } from '../services/order.service'
@@ -24,6 +24,7 @@ type Props = {
 	date: string
 	prefix: string
 	isAddressValid: boolean
+	onOrderSuccess: () => void
 }
 
 const PriceSummary = ({
@@ -36,6 +37,7 @@ const PriceSummary = ({
 	prefix,
 	date,
 	isAddressValid,
+	onOrderSuccess,
 }: Props) => {
 	const totalPerPerson = selectedItems.reduce(
 		(acc, item) => acc + item.price,
@@ -70,6 +72,7 @@ const PriceSummary = ({
 		guests > 0
 
 	const [loading, setLoading] = useState(false)
+	const [successOpen, setSuccessOpen] = useState(false)
 	// const [success, setSuccess] = useState(false)
 
 	const handleCreateOrder = async () => {
@@ -110,7 +113,11 @@ const PriceSummary = ({
 
 			await createOrder(order)
 
-			toast.success('Order Created Successfully')
+			// toast.success('Thank you for choosing Private Kitchen!')
+			// onOrderSuccess()
+
+			setSuccessOpen(true)
+			onOrderSuccess()
 		} catch {
 			toast.error('Failed to create order')
 		} finally {
@@ -172,7 +179,7 @@ Total: ₪${total}
 			<Typography
 				sx={{
 					color: '#999',
-					marginBottom: '12px',
+					// marginBottom: '12px',
 				}}
 			>
 				📞 {prefix}
@@ -251,6 +258,42 @@ Total: ₪${total}
 					{loading ? 'Creating Order...' : 'PLACE ORDER'}
 				</Box>
 			</Box>
+
+			<Dialog open={successOpen} onClose={() => setSuccessOpen(false)}>
+				<Box
+					sx={{
+						padding: '32px',
+						background: '#151515',
+						textAlign: 'center',
+						maxWidth: '500px',
+					}}
+				>
+					<Typography
+						variant='h4'
+						sx={{
+							color: '#d4a017',
+							fontWeight: 800,
+							marginBottom: '20px',
+						}}
+					>
+						🎉 Thank You!
+					</Typography>
+
+					<Typography sx={{ marginBottom: '12px' }}>
+						Thank you for choosing Private Kitchen.
+					</Typography>
+
+					<Typography sx={{ marginBottom: '12px' }}>
+						Your order has been received and our team will contact you shortly.
+					</Typography>
+
+					<Typography>
+						We appreciate your trust and look forward to serving you.
+						<br />
+						See you soon! 🔥
+					</Typography>
+				</Box>
+			</Dialog>
 		</Box>
 	)
 }

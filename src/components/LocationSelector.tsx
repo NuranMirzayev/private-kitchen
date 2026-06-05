@@ -65,7 +65,12 @@ const LocationSelector = ({
 				<TextField
 					label='Street'
 					value={street}
-					onChange={e => setStreet(e.target.value)}
+					onChange={e => {
+						const value = e.target.value
+						if (/^[A-Za-zА-Яа-я\s]*$/.test(value)) {
+							setStreet(value)
+						}
+					}}
 					fullWidth
 				/>
 
