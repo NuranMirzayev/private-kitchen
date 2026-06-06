@@ -81,14 +81,13 @@ const PriceSummary = ({
 	const [loading, setLoading] = useState(false)
 	const [successOpen, setSuccessOpen] = useState(false)
 
-	if (!emailRegex.test(email)) {
-		toast.error('Please enter a valid email address')
-		return
-	}
-
 	const handleCreateOrder = async () => {
 		if (!name.trim()) {
 			toast.error('Please enter your name')
+			return
+		}
+		if (!emailRegex.test(email)) {
+			toast.error('Please enter a valid email address')
 			return
 		}
 
