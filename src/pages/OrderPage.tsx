@@ -6,6 +6,9 @@ import ExtrasSelector from '../components/ExtrasSelector'
 import MainContainer from '../layout/MainContainer'
 import Navbar from '../layout/Navbar'
 
+import { useEffect } from 'react'
+import { subscribeToBookedSlots } from '../services/booking.service'
+
 import { Box, Typography } from '@mui/material'
 
 import ContactForm from '../components/ContactForm'
@@ -40,7 +43,11 @@ const OrderPage = () => {
 	const [date, setDate] = useState<Dayjs | null>(dayjs())
 	const [time, setTime] = useState('')
 
-	const isToday = date ? date.isSame(dayjs(), 'day') : false
+	// const isToday = date ? date.isSame(dayjs(), 'day') : false
+
+	const [bookedSlots, setBookedSlots] = useState<
+		{ date: string; time: string }[]
+	>([])
 
 	const handleOrderSuccess = () => {
 		setTime('')
@@ -73,6 +80,14 @@ const OrderPage = () => {
 
 	const isAddressValid =
 		city.trim() !== '' && street.trim() !== '' && houseNumber.trim() !== ''
+
+	useEffect(() => {
+		const unsubscribe = subscribeToBookedSlots(bookedSlots => {
+			setBookedSlots(bookedSlots)
+		})
+
+		return () => unsubscribe()
+	}, [])
 
 	return (
 		<>
@@ -124,7 +139,12 @@ const OrderPage = () => {
 							<GuestCounter guests={guests} setGuests={setGuests} />
 							<DateSelector date={date} setDate={setDate} />
 
-							<TimeSelector time={time} setTime={setTime} isToday={isToday} />
+							<TimeSelector
+								time={time}
+								setTime={setTime}
+								bookedSlots={bookedSlots}
+								selectedDate={date?.format('DD/MM/YYYY') || ''}
+							/>
 
 							<MenuSelector
 								selectedItems={selectedItems}

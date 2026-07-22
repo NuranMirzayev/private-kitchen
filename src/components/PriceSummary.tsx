@@ -4,6 +4,8 @@ import { toast } from 'react-toastify'
 import { createOrder } from '../services/order.service'
 import type { Order } from '../types/order'
 
+import { sendBookingEmail } from '../services/email.service'
+
 type MenuItem = {
 	name: string
 	price: number
@@ -128,8 +130,15 @@ const PriceSummary = ({
 
 			await createOrder(order)
 
-			// toast.success('Thank you for choosing Private Kitchen!')
-			// onOrderSuccess()
+			await sendBookingEmail({
+				name,
+				email,
+				date,
+				time,
+				guests,
+				location,
+				total,
+			})
 
 			setSuccessOpen(true)
 			onOrderSuccess()

@@ -3,31 +3,47 @@ import { Box, MenuItem, TextField, Typography } from '@mui/material'
 type Props = {
 	time: string
 	setTime: (value: string) => void
-	isToday: boolean
+
+	bookedSlots: {
+		date: string
+		time: string
+	}[]
+
+	selectedDate: string
 }
 
-const TimeSelector = ({ time, setTime, isToday }: Props) => {
+const PREPARATION_TIME = 180 // 3 часа до
+const EVENT_DURATION = 180 // 3 часа после
+
+const TimeSelector = ({ time, setTime, bookedSlots, selectedDate }: Props) => {
 	const times: string[] = []
-
-	const now = new Date()
-
-	const minTimeToday = now.getHours() * 60 + now.getMinutes() + 180
 
 	for (let hour = 10; hour <= 23; hour++) {
 		for (const minute of [0, 30]) {
 			if (hour === 23 && minute === 30) continue
 
-			const totalMinutes = hour * 60 + minute
+			const currentTime = `${hour.toString().padStart(2, '0')}:${minute
+				.toString()
+				.padStart(2, '0')}`
 
-			if (isToday && totalMinutes < minTimeToday) {
-				continue
-			}
+			const currentMinutes = hour * 60 + minute
 
-			times.push(
-				`${hour.toString().padStart(2, '0')}:${minute
-					.toString()
-					.padStart(2, '0')}`,
-			)
+			const isBooked = bookedSlots.some(slot => {
+				if (slot.date !== selectedDate) return false
+
+				const [bookedHour, bookedMinute] = slot.time.split(':').map(Number)
+
+				const bookedMinutes = bookedHour * 60 + bookedMinute
+
+				return (
+					currentMinutes >= bookedMinutes - PREPARATION_TIME &&
+					currentMinutes <= bookedMinutes + EVENT_DURATION
+				)
+			})
+
+			if (isBooked) continue
+
+			times.push(currentTime)
 		}
 	}
 
